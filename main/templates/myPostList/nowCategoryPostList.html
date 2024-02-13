@@ -1,0 +1,31 @@
+<article class="m-2 rounded-2" style="border: 2px solid black;">
+    
+    <!-- 카테고리 글 목록 열기 -->
+    <div class="d-flex gap-1 justify-content-between">
+        <h5 class="m-2">{{ post.category }} 내의 글</h5>
+        <button class="btn btn-primary ms-auto m-1" type="button" data-bs-toggle="collapse" data-bs-target="#postlist_category" aria-expanded="false" aria-controls="postlist_category">
+            목록 열기
+        </button>
+    </div>
+    <div class="collapse show" id="postlist_category">
+
+    <!-- 카테고리 내의 글 리스트 -->
+    <div class="list-group">
+        {% for sorted_post in sorted_posts %}
+            {% if sorted_post.id == post.id %}
+                <a href="{% url 'main:detail' username=owner.username category=sorted_post.category.name number=sorted_post.id %}" class="list-group-item list-group-item-action active" aria-current="true">
+            {% else %}
+                <a href="{% url 'main:detail' username=owner.username category=sorted_post.category.name number=sorted_post.id %}" class="list-group-item list-group-item-action">
+            {% endif %}
+                    <div class="d-flex">
+                        {{ sorted_post.title }}
+                        <p class="ms-auto my-0" style="color: rgb(143, 143, 143);">{{ sorted_post.created_at }}</p>
+                    </div>
+                </a>       
+        {% endfor %}
+    </div>  
+
+    <!-- 페이지네이션 -->
+    {% include './_pagination.html' %}
+    </div>
+</article>

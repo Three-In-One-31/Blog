@@ -1,0 +1,35 @@
+<nav class="mt-auto">
+  <ul class="pagination justify-content-center">
+    {% if posts_nb.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page_posts={{ page_posts }}&page_nb={{ posts_nb.previous_page_number }}">이전</a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+          <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+      </li>
+    {% endif %}
+    <!-- 페이지리스트 -->
+    {% for page_number in posts_nb.paginator.page_range %}
+      {% if page_number == posts_nb.number %}
+        <li class="page-item active" aria-current="page">
+            <a class="page-link" href="?page_posts={{ page_posts }}&page_nb={{ page_number }}">{{ page_number }}</a>
+        </li>
+      {% else %}
+        <li class="page-item">
+            <a class="page-link" href="?page_posts={{ page_posts }}&page_nb={{ page_number }}">{{ page_number }}</a>
+        </li>
+      {% endif %}
+    {% endfor %}
+    <!-- 다음페이지 -->
+    {% if posts_nb.has_next %}
+      <li class="page-item">
+          <a class="page-link" href="?page_posts={{ page_posts }}&page_nb={{ posts_nb.next_page_number }}">다음</a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+          <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+      </li>
+    {% endif %}
+  </ul>
+</nav>

@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ owner.username }} : {{ post.title }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+</head>
+<body>
+    <!-- 네비게이션 바 -->
+    {% include '_nav.html' %}
+    <div class="container-lg">
+        <section class="float-end" style="width: 100%; margin-left: -250px; padding-left: 250px;">
+            <!-- 모든 글 목록 -->
+            {% include 'myPostList/nowCategoryPostList.html' %}
+
+            <!-- 현재 글 -->
+            {% include 'nowPost/nowPost.html' %}
+        </section>
+
+        <aside class="float-start" style="width: 240px;">
+            <!-- 블로그 주인의 프로필 -->
+            {% include 'aside/myProfile.html' %}
+
+            <!-- 블로그의 카테고리 -->
+            {% include 'aside/myCategory.html' %}
+        </aside>
+    </div>
+</body>
+</html>

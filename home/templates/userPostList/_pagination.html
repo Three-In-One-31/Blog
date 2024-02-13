@@ -1,0 +1,70 @@
+<nav class="mt-auto">
+    <ul class="pagination justify-content-center">
+      {% if posts_nb == None %}
+        {% if posts.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page_posts={{ posts.previous_page_number }}">이전</a>
+          </li>
+        {% else %}
+          <li class="page-item disabled">
+              <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+          </li>
+        {% endif %}
+        <!-- 페이지리스트 -->
+        {% for page_number in posts.paginator.page_range %}
+          {% if page_number == posts.number %}
+            <li class="page-item active" aria-current="page">
+                <a class="page-link" href="?page_posts={{ page_number }}">{{ page_number }}</a>
+            </li>
+          {% else %}
+            <li class="page-item">
+                <a class="page-link" href="?page_posts={{ page_number }}">{{ page_number }}</a>
+            </li>
+          {% endif %}
+        {% endfor %}
+        <!-- 다음페이지 -->
+        {% if posts.has_next %}
+          <li class="page-item">
+              <a class="page-link" href="?page_posts={{ posts.next_page_number }}">다음</a>
+          </li>
+        {% else %}
+          <li class="page-item disabled">
+              <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+          </li>
+        {% endif %}
+
+      {% else %}
+        {% if posts.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page_posts={{ posts.previous_page_number }}&page_nb={{ page_nb }}">이전</a>
+          </li>
+        {% else %}
+          <li class="page-item disabled">
+              <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+          </li>
+        {% endif %}
+        <!-- 페이지리스트 -->
+        {% for page_number in posts.paginator.page_range %}
+          {% if page_number == posts.number %}
+            <li class="page-item active" aria-current="page">
+                <a class="page-link" href="?page_posts={{ page_number }}&page_nb={{ page_nb }}">{{ page_number }}</a>
+            </li>
+          {% else %}
+            <li class="page-item">
+                <a class="page-link" href="?page_posts={{ page_number }}&page_nb={{ page_nb }}">{{ page_number }}</a>
+            </li>
+          {% endif %}
+        {% endfor %}
+        <!-- 다음페이지 -->
+        {% if posts.has_next %}
+          <li class="page-item">
+              <a class="page-link" href="?page_posts={{ posts.next_page_number }}&page_nb={{ page_nb }}">다음</a>
+          </li>
+        {% else %}
+          <li class="page-item disabled">
+              <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+          </li>
+        {% endif %}
+      {% endif %}
+    </ul>
+</nav>
