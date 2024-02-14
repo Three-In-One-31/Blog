@@ -1,13 +1,15 @@
+<!-- 카테고리 리스트 -->
 <div class="m-2 p-1 rounded-2" style="border: 2px solid rgb(0, 0, 0); height: 30rem;">
     <div class="d-flex justify-content-between align-items-center">
         <p class="ms-1 mb-0 fs-6 fw-bold">카테고리 리스트</p>
         {% if user.id == owner.id %}
-        <a onclick="location.href='{% url 'main:category' username=request.user.username %}'" class="btn btn-secondary me-1" style="--bs-btn-padding-y: .1rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: 0.75rem;">관리</a>
+            <a onclick="location.href='{% url 'main:category' username=request.user.username %}'" class="btn btn-secondary me-1" style="--bs-btn-padding-y: .1rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: 0.75rem;">관리</a>
         {% endif %}
     </div>
+
     {% for name, id in category_items %}
-    <div>
-        <a href="{% url 'main:detail' username=owner.username category=name number=id %}" class="ms-3 my-0 mt-1 link-dark link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">{{name}}</a>
-    </div>
+        <div>
+            <a href="{% url 'main:detail' username=owner.username category=name number=id %}" class="ms-3 my-0 mt-1 link-dark link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">{{name}}</a>
+        </div>
     {% endfor %}
 </div>

@@ -4,10 +4,21 @@
             <a class="nav-link active" aria-current="page" href="#" onclick="showContent('allPosts')">전체</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#" onclick="showContent('')">맛집</a>
+            <a class="nav-link" href="#" onclick="showContent('allRestaurants')">맛집</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#" onclick="showContent('')">취미</a>
+            <a class="nav-link" href="#" onclick="showContent('allHobbies')">취미</a>
         </li>
     </ul>
+</div>
+
+<!-- 맛집 -->
+<div id="allRestaurantsContent" class="content" style="display: none;">
+    {% include './_allRestaurants.html' %}
+
+</div>
+
+<!-- 취미 -->
+<div id="allhobbiesContent" class="content" style="display: none;">
+    {% include './_allhobbies.html' %}
 </div>

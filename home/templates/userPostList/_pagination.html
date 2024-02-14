@@ -1,6 +1,10 @@
 <nav class="mt-auto">
     <ul class="pagination justify-content-center">
+
+      <!-- 포스트가 없는 경우 -->
       {% if posts_nb == None %}
+
+        <!-- 이전 페이지 -->
         {% if posts.has_previous %}
           <li class="page-item">
             <a class="page-link" href="?page_posts={{ posts.previous_page_number }}">이전</a>
@@ -10,7 +14,8 @@
               <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
           </li>
         {% endif %}
-        <!-- 페이지리스트 -->
+
+        <!-- 현재 페이지 -->
         {% for page_number in posts.paginator.page_range %}
           {% if page_number == posts.number %}
             <li class="page-item active" aria-current="page">
@@ -22,6 +27,7 @@
             </li>
           {% endif %}
         {% endfor %}
+
         <!-- 다음페이지 -->
         {% if posts.has_next %}
           <li class="page-item">
@@ -32,8 +38,11 @@
               <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
           </li>
         {% endif %}
-
+      
+      <!-- 포스트가 있는 경우 -->
       {% else %}
+          
+        <!-- 이전 페이지 -->
         {% if posts.has_previous %}
           <li class="page-item">
             <a class="page-link" href="?page_posts={{ posts.previous_page_number }}&page_nb={{ page_nb }}">이전</a>
@@ -43,7 +52,8 @@
               <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
           </li>
         {% endif %}
-        <!-- 페이지리스트 -->
+
+        <!-- 현재 페이지 -->
         {% for page_number in posts.paginator.page_range %}
           {% if page_number == posts.number %}
             <li class="page-item active" aria-current="page">
@@ -55,6 +65,7 @@
             </li>
           {% endif %}
         {% endfor %}
+
         <!-- 다음페이지 -->
         {% if posts.has_next %}
           <li class="page-item">
@@ -65,6 +76,7 @@
               <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
           </li>
         {% endif %}
+        
       {% endif %}
     </ul>
 </nav>

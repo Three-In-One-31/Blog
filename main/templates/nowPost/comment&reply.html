@@ -1,7 +1,9 @@
+<!-- 포스트에 달린 댓글 반복문 -->
 {% for comment in post.comment_set.all %}
 
     <!-- comment -->
     <div class="d-flex align-items-center" style="width: 100%;">
+        <!-- 댓글 작성자 정보 -->
         <div class="m-1" style="width: 30px; height: 30px; border-radius: 70%; overflow: hidden;">
             <img src="{{ comment.user.profile_image.url }}" alt="" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
@@ -10,6 +12,7 @@
             <p class="m-0" style="font-size: 0.75rem; color: rgb(143, 143, 143);">{{ comment.updated_at|date:"Y년 n월 j일 A g:i" }}</p>
         </div>
         <div class="ms-auto my-0 py-0">
+            <!-- 댓글 수정 및 삭제 -->
             <div class="ms-auto">
                 {% if user == comment.user %}
                     <div class="dropdown">
@@ -19,13 +22,13 @@
                             <li><button onclick="commentDelete('{{owner.username}}','{{post.category.name}}','{{post.id}}','{{comment.id}}');" class="dropdown-item" href="#">삭제하기</button></li>
                         </ul>
                     </div>
-                    {% include 'nowPost/commentModal.html' %}
                 {% else %}
                     <div class="dropdown">
                         <button class="btn dropdown-toggle" type="button" style="visibility: hidden;"></button>
                     </div>
                 {% endif %}
             </div>
+            <!-- 댓글 공감 버튼 -->
             <div class="my-0 py-0 me-2">
                 {% if user in comment.like_users.all %}
                     <i class="bi bi-heart-fill comment_heart align-self-center " style="color:red; font-size: 1rem;" data-post-id="{{ post.id }}" data-comment-id="{{ comment.id }}" data-username="{{ username }}" data-category="{{ category }}">{{ comment.like_users.all|length }}</i> 
@@ -37,8 +40,10 @@
         </div>
     </div>
     
+    <!-- 댓글 내용 -->
     <p class="ms-1">{{ comment.content }}</p>
 
+    <!-- 댓글 수정 폼 -->
     <div id="comment-{{ comment.id }}-update-form" style="display: none;">
         <form onsubmit="updateComment('{{owner.username}}', '{{post.category.name}}', '{{post.id}}', '{{comment.id}}', this.content.value); return false;">
             <textarea name="content" id="comment-{{ comment.id }}-update-content" rows="3" class="form-control">{{ comment.content }}</textarea>
@@ -50,53 +55,57 @@
 
     <!-- reply -->
     <div class="ms-2">
+        <!-- 댓글에 달린 답글 반복문 -->
         {% for reply in comment.reply_set.all %}
-        <div class="d-flex align-items-center" style="width: 100%;">
-            <!-- 프로필 이미지 -->
-            <div class="m-1" style="width: 30px; height: 30px; border-radius: 70%; overflow: hidden;">
-                <img src="{{ reply.user.profile_image.url }}" alt="" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-        
-            <!-- 유저 이름과 작성일 -->
-            <div>
-                <p class="m-0" style="font-size: 1rem;">{{ reply.user }}</p>
-                <p class="m-0" style="font-size: 0.75rem; color: rgb(143, 143, 143);">{{ reply.updated_at|date:"Y년 n월 j일 A g:i" }}</p>
-            </div>
-        
-            <!-- 수정 및 삭제 드롭다운 -->
-            {% if user == reply.user %}
-            <div class="dropdown ms-auto">
-                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
-                <ul class="dropdown-menu">
-                    <li>
-                        <button type="button" class="dropdown-item" onclick="showUpdateReplyForm('{{ reply.id }}', '{{ reply.content }}')">수정하기</button>
-                    </li>
-                    <li>
-                        <button onclick="replyDelete('{{owner.username}}','{{post.category.name}}','{{post.id}}','{{comment.id}}','{{reply.id}}');" class="dropdown-item" href="#">삭제하기</button>
-                    </li>
-                </ul>
-            </div>
-            {% endif %}
-        
-        </div>
-        <!-- 기존 내용 -->
-        <p class="ms-3">{{ reply.content }}</p>
-        
-        <!-- 수정 폼 -->
-        <div id="reply-{{ reply.id }}-update-form" style="display: none;">
-            <form onsubmit="updateReply('{{owner.username}}', '{{post.category.name}}', '{{post.id}}', '{{comment.id}}', '{{ reply.id }}', this.content.value); return false;">
-                <textarea name="content" id="reply-{{ reply.id }}-update-content" rows="3" class="form-control">{{ reply.content }}</textarea>
-                <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary mt-2 mb-2 float-right">수정하기</button>
+
+            <!-- 답글 작성자 정보 -->
+            <div class="d-flex align-items-center" style="width: 100%;">
+                <div class="m-1" style="width: 30px; height: 30px; border-radius: 70%; overflow: hidden;">
+                    <img src="{{ reply.user.profile_image.url }}" alt="" style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
-            </form>
-        </div>
+                <div>
+                    <p class="m-0" style="font-size: 1rem;">{{ reply.user }}</p>
+                    <p class="m-0" style="font-size: 0.75rem; color: rgb(143, 143, 143);">{{ reply.updated_at|date:"Y년 n월 j일 A g:i" }}</p>
+                </div>
+            
+                <!-- 답글 수정 및 삭제 -->
+                {% if user == reply.user %}
+                <div class="dropdown ms-auto">
+                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <button type="button" class="dropdown-item" onclick="showUpdateReplyForm('{{ reply.id }}', '{{ reply.content }}')">수정하기</button>
+                        </li>
+                        <li>
+                            <button onclick="replyDelete('{{owner.username}}','{{post.category.name}}','{{post.id}}','{{comment.id}}','{{reply.id}}');" class="dropdown-item" href="#">삭제하기</button>
+                        </li>
+                    </ul>
+                </div>
+                {% endif %}
+            
+            </div>
+
+            <!-- 답글 내용 -->
+            <p class="ms-3">{{ reply.content }}</p>
+            
+            <!-- 답글 수정 폼 -->
+            <div id="reply-{{ reply.id }}-update-form" style="display: none;">
+                <form onsubmit="updateReply('{{owner.username}}', '{{post.category.name}}', '{{post.id}}', '{{comment.id}}', '{{ reply.id }}', this.content.value); return false;">
+                    <textarea name="content" id="reply-{{ reply.id }}-update-content" rows="3" class="form-control">{{ reply.content }}</textarea>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary mt-2 mb-2 float-right">수정하기</button>
+                    </div>
+                </form>
+            </div>
         {% endfor %}        
     </div>
+
+    <!-- 답글 버튼 -->
     <div class="d-flex align-items-center" style="width: 100%;">
         <button type="button" class="btn btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#reply-list-{{ post.id }}-{{ comment.id }}" aria-expanded="false" aria-controls="reply" style="--bs-btn-padding-y: 0rem; --bs-btn-padding-x: .3rem; --bs-btn-font-size: .75rem;">답글</button>
     </div>
 
+    <!-- 답글 작성 폼 -->
     <div class="collapse reply_form" id="reply-list-{{ post.id }}-{{ comment.id }}">
         {% if user.is_authenticated %}
         <form action="{% url 'main:reply_create' username=owner.username category=post.category.name number=post.id comment_id=comment.id %}" method="POST" class="reply-Form">
@@ -112,6 +121,7 @@
     <hr>
 {% endfor %}
 
+<!-- 댓글 작성 폼 -->
 <div class="comment_form">
     {% if user.is_authenticated %}
     <form action="{% url 'main:comment_create' username=owner.username category=post.category.name number=post.id %}" method="POST" class="comment-Form">

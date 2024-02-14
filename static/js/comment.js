@@ -16,7 +16,6 @@ commentForms.forEach(function(commentForm){
                 hour12: true
             }).format(comment.updated_at);
 
-            console.log(comment);
             const likeIcon = comment.like_users > 0 ?
             `<i class="bi bi-heart-fill comment_heart align-self-center" style="color:red; font-size: 1rem;" data-post-id="${comment.number}" data-comment-id="${comment.comment_id}">${comment.like_users}</i>` :
             `<i class="bi bi-heart comment_heart align-self-center" style="font-size: 1rem;" data-post-id="${comment.number}" data-comment-id="${comment.comment_id}">${comment.like_users}</i>`;

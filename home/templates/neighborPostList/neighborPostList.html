@@ -2,38 +2,52 @@
     <h4 class="m-2">내 이웃의 글</h4>
     <hr class="mt-1">
     <div>
-    {% if user.is_authenticated %}
-        {% if request.user.followings.all|length == 0 %}
-            <p class="m-3">이웃을 추가해주세요!</p>
-        {% else %}
-        <div class="m-2 rounded-2 d-flex" style="flex-direction: column;">
-            {% for post in posts_nb %}
-                <div class="d-flex align-items-center" style="width: 100%;">
-                    <div class="m-1" style="width: 30px; height: 30px; border-radius: 70%; overflow: hidden;">
-                        <img src="{{ post.user.profile_image.url }}" alt="" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div>
-                        <p class="m-0" style="font-size: 0.75rem;">{{post.user}}</p>
-                        <p class="m-0" style="font-size: 0.75rem; color: rgb(143, 143, 143);">{{ post.updated_at }}</p>
-                    </div>
-                    <a href="{% url 'accounts:follows' username=post.user %}" class="btn btn-secondary ms-auto" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">이웃해제</a>
+        <!-- 로그인을 한 경우 -->
+        {% if user.is_authenticated %}
+
+            <!-- 이웃이 한명도 없는 경우 -->
+            {% if request.user.followings.all|length == 0 %}
+                <p class="m-3">이웃을 추가해주세요!</p>
+            
+            <!-- 이웃이 한명이라도 있는 경우 -->
+            {% else %}
+                <div class="m-2 rounded-2 d-flex" style="flex-direction: column;">
+
+                    <!-- 이웃의 포스트 -->
+                    {% for post in posts_nb %}
+
+                        <!-- 포스트에 대한 정보 -->
+                        <div class="d-flex align-items-center" style="width: 100%;">
+                            <div class="m-1" style="width: 30px; height: 30px; border-radius: 70%; overflow: hidden;">
+                                <img src="{{ post.user.profile_image.url }}" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                            <div>
+                                <p class="m-0" style="font-size: 0.75rem;">{{post.user}}</p>
+                                <p class="m-0" style="font-size: 0.75rem; color: rgb(143, 143, 143);">{{ post.updated_at }}</p>
+                            </div>
+                            <a href="{% url 'accounts:follows' username=post.user %}" class="btn btn-secondary ms-auto" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">이웃해제</a>
+                        </div>
+
+                        <!-- 포스트 클릭 시 상세 페이지로 이동 -->
+                        <a href="{% url 'main:detail' username=post.user.username category=post.category.name number=post.id %}" class="link-dark link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
+                            <h5 class="fw-bold mt-1">{{ post.title }}</h5> 
+                            <p style="overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;">
+                                {{ post.content}} 
+                            </p>
+                        </a>
+                        <hr class="mt-0">
+                    {% endfor %}
                 </div>
+                
+                <!-- 페이지네이션 -->
+                {% include './_pagination.html' %}
 
-                <a href="{% url 'main:detail' username=post.user.username category=post.category.name number=post.id %}" class="link-dark link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
-                <h5 class="fw-bold mt-1">{{ post.title }}</h5> 
-                <p style="overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;">
-                    {{ post.content}} 
-                </p>
-                </a>
-                <hr class="mt-0">
-            {% endfor %}
-        </div>
-        <!-- 페이지네이션 -->
-            {% include './_pagination.html' %}
-        {% endif %}
-    {% else %}
+            {% endif %}
+
+        <!-- 로그인을 하지 않은 경우 -->
+        {% else %}
         <p class="m-3">로그인이 필요합니다.</p>
+        
+        {% endif %}
     </div>
-
-    {% endif %}
 </article>

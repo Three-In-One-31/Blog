@@ -5,6 +5,8 @@ from django.conf import settings
 from accounts import models as accounts_model
 
 # Create your models here.
+
+# 카테고리 모델링
 class Category(models.Model):
     owner = models.ForeignKey(accounts_model.User, on_delete=models.CASCADE)
     name = models.CharField(max_length=20)
@@ -15,7 +17,7 @@ class Category(models.Model):
     def get_absolute_url(self):
         return reverse('main:main')
 
-
+# 포스트 모델링
 class Post(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_DEFAULT, default='1')
     TAG_CHOICES = [
@@ -41,6 +43,7 @@ class Post(models.Model):
     def __str__(self):
         return self.title
     
+# 댓글 모델링
 class Comment(models.Model):
     content = models.TextField()
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -52,7 +55,7 @@ class Comment(models.Model):
     def __str__(self):
         return self.content[:20]
 
-
+# 답글 모델링
 class Reply(models.Model):
     content = models.TextField()
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

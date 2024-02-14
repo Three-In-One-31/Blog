@@ -11,34 +11,41 @@
     
 </head>
 <body>
+    <!-- 네비게이션 바 -->
     {% include '_nav.html' %}
+
+    <!-- 전체 페이지 섹션 -->
     <section class="container text-center">
+        <!-- 기능명 -->
         <div class="mt-5 py-5">
             <h1 class="fw-bold">회원가입</h1>
         </div>
+
         <form action="{% url 'accounts:signup' %}" class="row w-75 m-auto justify-content-center" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
 
             {% if form.errors %}
-            <div class="alert alert-danger text-start">
-                {% for field in form %}
-                <!-- 필드 오류 -->
-                {% if field.errors %}
-                <div>
-                    <strong>{{ field.label }}</strong>
-                    {{ field.errors }}
-                </div>
-                {% endif %}
-                {% endfor %}
-                <!-- 넌필드 오류 -->
-                {% for error in form.non_field_errors %}
-                <div>
-                    <strong>{{ error }}</strong>
-                </div>
-                {% endfor %}
-            </div>
-            {% endif %}
+                <div class="alert alert-danger text-start">
+                    {% for field in form %}
+                    <!-- 필드 오류 -->
+                        {% if field.errors %}
+                            <div>
+                                <strong>{{ field.label }}</strong>
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
 
+                    <!-- 넌필드 오류 -->
+                    {% for error in form.non_field_errors %}
+                        <div>
+                            <strong>{{ error }}</strong>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            <!-- input area -->
             <div class="">
                 <div class="form-floating mb-3">
                     <input type="text" maxlength="8" class="form-control" name="username" id="username" placeholder="id" required>

@@ -15,21 +15,23 @@
 <!-- 네비게이션 바 -->
 {% include '_nav.html' %}
     <div class="container-lg">
+        <!-- 글이 있는 경우 -->
         {% if post %}
-        <section class="float-end" style="width: 100%; margin-left: -250px; padding-left: 250px;">
-            <!-- 모든 글 목록 -->
-            {% include 'myPostList/myPostList.html' %}
+            <section class="float-end" style="width: 100%; margin-left: -250px; padding-left: 250px;">
+                <!-- 모든 글 목록 -->
+                {% include 'myPostList/myPostList.html' %}
 
-            <!-- 현재 글 -->
-            {% include 'nowPost/nowPost.html' %}
-        </section>
+                <!-- 현재 글 -->
+                {% include 'nowPost/nowPost.html' %}
+            </section>
         {% else %}
-        <section class="float-end" style="width: 100%; margin-left: -250px; padding-left: 250px;">
-            <!-- 글 없음 -->
-            {% include 'nowPost/postNone.html' %}
-        </section>
+            <section class="float-end" style="width: 100%; margin-left: -250px; padding-left: 250px;">
+                <!-- 글 없음 -->
+                {% include 'nowPost/postNone.html' %}
+            </section>
 
         {% endif %}
+        
         <aside class="float-start" style="width: 240px;">
             <!-- 블로그 주인의 프로필 -->
             {% include 'aside/myProfile.html' %}

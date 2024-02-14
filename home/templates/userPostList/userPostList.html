@@ -2,34 +2,42 @@
     <!-- tag -->
     {% include './_tag.html' %}
 
-    <div class="m-2 rounded-2 d-flex" style="flex-direction: column;">
-        {% for post in posts %}
-        <div class="d-flex align-items-center" style="width: 100%;">
-            <div class="m-1" style="width: 30px; height: 30px; border-radius: 70%; overflow: hidden;">
-                <img src="{{ post.user.profile_image.url }}" alt="" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
+    <!-- 전체 포스트 -->
+    <div id="allPostsContent" class="content">
+        <div id="allPosts" class="m-2 rounded-2 d-flex" style="flex-direction: column;">
+            {% for post in posts %}
+            
+                <!-- 포스트에 관한 정보 -->
+                <div class="d-flex align-items-center" style="width: 100%;">
+                    <div class="m-1" style="width: 30px; height: 30px; border-radius: 70%; overflow: hidden;">
+                        <img src="{{ post.user.profile_image.url }}" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+        
+                    <div>
+                        <p class="m-0" style="font-size: 0.75rem;"><a href="{% url 'main:main' username=post.user.username %}" class="link-dark  link-underline-opacity-0">{{post.user}}</a></p>
+                        <p class="m-0" style="font-size: 0.75rem; color: rgb(143, 143, 143);">{{ post.updated_at }}</p>
+                    </div>
 
-            <div>
-                <p class="m-0" style="font-size: 0.75rem;"><a href="{% url 'main:main' username=post.user.username %}" class="link-dark  link-underline-opacity-0">{{post.user}}</a></p>
-                <p class="m-0" style="font-size: 0.75rem; color: rgb(143, 143, 143);">{{ post.updated_at }}</p>
-            </div>
-            {% if user != post.user and user.is_authenticated %}
-                {% if user in post.user.followers.all %}
-                    <a href="{% url 'accounts:follows' username=post.user %}" class="btn btn-secondary ms-auto" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">이웃해제</a>
-                {% else %}
-                    <a href="{% url 'accounts:follows' username=post.user %}" class="btn btn-secondary ms-auto" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">이웃추가</a>
-                {% endif %}
-            {% endif %}
+                    <!-- 이웃 기능 -->
+                    {% if user != post.user and user.is_authenticated %}
+                        {% if user in post.user.followers.all %}
+                            <a href="{% url 'accounts:follows' username=post.user %}" class="btn btn-secondary ms-auto" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">이웃해제</a>
+                        {% else %}
+                            <a href="{% url 'accounts:follows' username=post.user %}" class="btn btn-secondary ms-auto" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">이웃추가</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                
+                <!-- 포스트 링크 -->
+                <a href="{% url 'main:detail' username=post.user.username category=post.category.name number=post.id %}" class="link-dark link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
+                <h5 class="fw-bold mt-1">{{ post.title }}</h5>
+                <p style="overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3;">
+                    {{ post.content}}
+                </p>
+                </a>
+                <hr class="mt-0">
+            {% endfor %}
         </div>
-
-        <a href="{% url 'main:detail' username=post.user.username category=post.category.name number=post.id %}" class="link-dark link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
-        <h5 class="fw-bold mt-1">{{ post.title }}</h5>
-        <p style="overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3;">
-            {{ post.content}}
-        </p>
-        </a>
-        <hr class="mt-0">
-        {% endfor %}
     </div>
 
     <!-- 페이지네이션 -->

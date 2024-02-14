@@ -1,8 +1,11 @@
 <p class="d-inline-flex gap-1">
+    <!-- 포스트에 공감하는 사람들을 표시하는 버튼 -->
     <div class="btn-group" role="group" aria-label="">
+        <!-- 공감 콜랩스 -->
         <button class="btn btn-outline-primary" data-bs-toggle="collapse" href="#likeUsers" role="button" aria-expanded="false">
             공감
         </button>
+        <!-- 공감 관련 정보 -->
         <button type="button" class="btn btn-outline-primary" id="like-button-{{ post.id }}" data-username="{{ username }}" data-category="{{ category }}">
             {% if user in post.like_users.all %}
                 <i class="bi bi-heart-fill heart align-self-center" style="color:red; font-size: 1rem;" data-post-id="{{ post.id }}">{{ post.like_users.all|length }} </i>
@@ -11,20 +14,34 @@
             {% endif %}
         </button>
     </div>
+
+    <!-- 댓글 콜랩스 -->
     <button class="btn btn-outline-primary show" type="button" data-bs-toggle="collapse" data-bs-target="#comment" aria-expanded="false" aria-controls="comment">
       댓글
     </button>
 </p>
+
+<!-- 포스트에 공감하는 사람들에 대한 정보 -->
 <div class="collapse" id="likeUsers">
     <div class="overflow-auto">
-        <div class="bg-warning d-flex m-1 float-start" style="height: 30px; width: 200px;">
-            <div style="width: 30px; height: 30px; border-radius: 70%; overflow: hidden;">
-                <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fdi0GrI%2FbtqyyWdEYM8%2FLbDOJG6QuYVXzFI9AlMq60%2Fimg.png" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+        {% for likeuser in post.like_users.all %}
+            <div class="d-flex m-1 float-start" style="height: 30px; width: 200px;">
+                <div style="width: 30px; height: 30px; border-radius: 70%; overflow: hidden;">
+                    <img src="{{ likeuser.profile_image.url }}" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="mx-1">
+                    <p style="font-size: 0.75rem;">{{ likeuser.username }}</p>
+                </div>
+
+                <!-- 이웃 추가, 해제 기능 -->
+                {% if user != likeuser and user.is_authenticated %}
+                    {% if user in likeuser.followers.all %}
+                        <a href="{% url 'accounts:followsInDetail' username=likeuser.username category=post.category.name number=post.id %}" class="btn btn-secondary ms-auto" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">이웃해제</a>
+                    {% else %}
+                        <a href="{% url 'accounts:followsInDetail' username=likeuser.username category=post.category.name number=post.id %}" class="btn btn-secondary ms-auto" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">이웃추가</a>
+                    {% endif %}
+                {% endif %}
             </div>
-            <div class="mx-1">
-                <p style="font-size: 0.75rem;">아이디</p>
-            </div>
-            <button type="button" class="btn btn-secondary ms-auto" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">이웃추가</button>
-        </div>
+        {% endfor %}
     </div>
 </div>

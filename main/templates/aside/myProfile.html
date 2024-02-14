@@ -16,11 +16,19 @@
     </div>
 
     <!-- 소개 -->
-    <div class="p-2 overflow-auto" style=" height: 15rem;">
-        소개를 적는 공간. 내용이 길어지면 자동으로 스크롤바가 생성됩니다. 
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, veniam? 
-        Corporis ad commodi velit, quas, quidem quisquam praesentium magnam 
-        excepturi expedita aliquid culpa totam ea molestias delectus. Minus, 
-        dolorum nobis.
-    </div>
+    {% if user.id == owner.id %}
+        <div class="p-2 overflow-auto editable-text d-flex flex-column" style="height: 15rem;">
+            <p>{{ owner.blog.introduce }}</p>
+            <textarea class="form-control" data-url="{% url 'main:edit_introduce' username %}" style="display: none; height: 11rem;"></textarea>
+            <button class="btn btn-primary edit-btn float-end mt-auto">소개 수정</button>
+            <button class="btn btn-success submit-btn float-end mt-auto" style="display: none;">제출</button>
+        </div>
+    {% else %}
+        <div class="p-2 overflow-auto" style="height: 15rem;">
+            <p>{{ owner.blog.introduce }}</p>
+        </div>
+    {% endif %}
+
+    <script type="text/javascript" src="/static/js/introduce.js"></script>
+
 </div>

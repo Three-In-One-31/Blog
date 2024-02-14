@@ -50,9 +50,11 @@
     </div>
 
     <div class="m-2">
+        <!-- 포스트 공감 -->
         {% include 'nowPost/likes.html' %}
         <div class="collapse show comment-list" id="comment-list">
             <hr>
+            <!-- 댓글, 답글 -->
             {% include 'nowPost/comment&reply.html' %}
 
         </div>
