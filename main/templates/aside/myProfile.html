@@ -11,7 +11,7 @@
             {{ owner.username }}
         </div>
         {% if user.id == owner.id %}
-        <button onclick="location.href='{% url 'main:create' username=request.user.username %}'" type="button" class="btn btn-primary ms-auto me-3" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: 0.75rem;">글 작성</button>
+            <button onclick="location.href='{% url 'main:create' username=request.user.username %}'" type="button" class="btn btn-primary ms-auto me-3" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: 0.75rem;">글 작성</button>
         {% endif %}
     </div>
 

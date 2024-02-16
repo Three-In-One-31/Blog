@@ -8,11 +8,9 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('admin/', admin.site.urls),
     path('<str:username>/', views.main, name='main'),
-    path('<str:username>/create/', views.create, name='create'),
-
-    path('<str:username>/edit_introduce/', views.edit_introduce, name='edit_introduce'),
-
     path('<str:username>/<str:category>/<int:number>/', views.detail, name='detail'),
+    path('<str:username>/create/', views.create, name='create'),
+    path('<str:username>/edit_introduce/', views.edit_introduce, name='edit_introduce'),
     path('<str:username>/<str:category>/<int:number>/delete/', views.delete, name='delete'),
     path('<str:username>/<str:category>/<int:number>/update/', views.update, name='update'),
 

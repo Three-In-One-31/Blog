@@ -25,10 +25,10 @@
 
             <!-- 포스트 링크 -->
             <a href="{% url 'main:detail' username=post.user.username category=post.category.name number=post.id %}" class="link-dark link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
-            <h5 class="fw-bold mt-1">{{ post.title }}</h5>
-            <p style="overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3;">
-                {{ post.content}}
-            </p>
+                <h5 class="fw-bold mt-1">{{ post.title }}</h5>
+                <p style="overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3;">
+                    {{ post.content}}
+                </p>
             </a>
             <hr class="mt-0">
         {% endif %}
