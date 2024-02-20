@@ -12,10 +12,7 @@ Django를 활용하여 만든 Blog 사이트. 웹 개발자와의 원활한 소�
 
 ## 주요 기능
 
-### 회원가입 - [WIKI](https://github.com/Three-In-One-31/Blog/wiki/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85)
-- 회원가입
-
-### 로그인 - [WIKI](https://github.com/Three-In-One-31/Blog/wiki/%EB%A1%9C%EA%B7%B8%EC%9D%B8)
+### 계정 - [WIKI](https://github.com/Three-In-One-31/Blog/wiki/%EA%B3%84%EC%A0%95)
 
 ### 메인 페이지 - [WIKI](https://github.com/Three-In-One-31/Blog/wiki/%EB%A9%94%EC%9D%B8-%ED%8E%98%EC%9D%B4%EC%A7%80)
 
