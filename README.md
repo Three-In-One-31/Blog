@@ -5,6 +5,14 @@ Django를 활용하여 만든 Blog 사이트. 웹 개발자와의 원활한 소�
 
 ## 개발 환경
 
+### 사용 tools
+- Framework: Django, Bootstrap
+- Tool: Visual Studio Code
+- 언어: python, javascript
+- DB: SQLite
+- 버전관리: Git/Github
+- 협업도구: Notion, Discord, Slack
+
 ### 맴버구성
 - 팀장 : 이지호 - css, 카테고리, 통합
 - 팀원1 : 최하은 - Post, 공감, 답글
